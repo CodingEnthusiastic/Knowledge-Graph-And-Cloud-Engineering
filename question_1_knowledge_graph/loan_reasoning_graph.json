@@ -1,0 +1,315 @@
+{
+  "nodes": [
+    {
+      "id": "BORROWER_APEX",
+      "type": "Borrower",
+      "label": "Apex Logistics Ltd.",
+      "description": "Regional refrigerated distribution supplier requesting $250k working capital.",
+      "metadata": {
+        "credit_score": 742,
+        "requested_amount": 250000,
+        "collateral_value": 320000
+      }
+    },
+    {
+      "id": "FACT_APEX_CREDIT",
+      "type": "ApplicationFact",
+      "label": "Prime Credit Score: 742",
+      "description": "Owner personal credit score 742, clean payment history on small tier credit lines.",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_APEX_COLLATERAL",
+      "type": "ApplicationFact",
+      "label": "Collateral: $320,000",
+      "description": "Refrigerated fleet and warehouse inventory pledged at 128% loan-to-value.",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_APEX_CLIENT_CONCENTRATION",
+      "type": "ApplicationFact",
+      "label": "84% Revenue via Retailer TitanMart",
+      "description": "Form detail: Long-standing supply contract delivering 84% of gross revenue to TitanMart Corp.",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_APEX_DSO",
+      "type": "ApplicationFact",
+      "label": "Accounts Receivable DSO: 45 Days",
+      "description": "Form shows historical average collection period of 45 days.",
+      "metadata": {}
+    },
+    {
+      "id": "TACIT_TITANMART_RESTRUCTURING",
+      "type": "TacitKnowledge",
+      "label": "TitanMart PE Restructuring & Margin Squeeze",
+      "description": "Unwritten industry intel: TitanMart was bought out by aggressive PE; currently unilaterally extending vendor payment terms to 90+ days and demanding 12% price cuts.",
+      "metadata": {}
+    },
+    {
+      "id": "TACIT_COLD_CHAIN_DEPRECIATION",
+      "type": "TacitKnowledge",
+      "label": "Specialized Chilled Fleet Illiquidity",
+      "description": "Officer's market experience: Used refrigerated vans face 40% liquidation discount at auction; effective recoverable collateral is under $190k.",
+      "metadata": {}
+    },
+    {
+      "id": "INFER_APEX_EXTREME_DEPENDENCY",
+      "type": "InferredAssessment",
+      "label": "Monopsony Price-Taker Fragility",
+      "description": "Apex has zero pricing power. Inability to pass through cost inflation or resist contract renegotiation.",
+      "metadata": {}
+    },
+    {
+      "id": "CONSEQ_APEX_WORKING_CAPITAL_DEFICIT",
+      "type": "FinancialConsequence",
+      "label": "Working Capital Freeze & DSCR Collapse",
+      "description": "Extending DSO from 45 to 90 days creates an immediate $210,000 liquidity hole. DSCR collapses from 1.35x to 0.38x.",
+      "metadata": {}
+    },
+    {
+      "id": "RISK_APEX_HIGH_DEFAULT",
+      "type": "RepaymentRisk",
+      "label": "Severe Default & Illiquidity Risk",
+      "description": "High probability of loan default within 9 months when loan amortization starts.",
+      "metadata": {}
+    },
+    {
+      "id": "DECISION_APEX_REJECT",
+      "type": "Decision",
+      "label": "DECISION: REJECT APPLICATION",
+      "description": "Decline loan request despite 742 credit score and 128% paper collateral.",
+      "metadata": {}
+    },
+    {
+      "id": "BORROWER_BEACON",
+      "type": "Borrower",
+      "label": "Beacon Precision Ltd.",
+      "description": "Precision CNC aerospace & medical components manufacturer requesting $250k expansion loan.",
+      "metadata": {
+        "credit_score": 738,
+        "requested_amount": 250000,
+        "collateral_value": 310000
+      }
+    },
+    {
+      "id": "FACT_BEACON_CREDIT",
+      "type": "ApplicationFact",
+      "label": "Prime Credit Score: 738",
+      "description": "Owner credit score 738, one 30-day late utility payment 2 years ago (explained).",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_BEACON_COLLATERAL",
+      "type": "ApplicationFact",
+      "label": "Collateral: $310,000",
+      "description": "5-Axis DMG Mori CNC machining center with active maintenance records.",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_BEACON_TEMPORARY_CASH_DIP",
+      "type": "ApplicationFact",
+      "label": "Q2 Operating Cash Dip (-$65,000)",
+      "description": "Form detail: Bank statements show a temporary cash contraction in Q2 due to specialized tooling & ISO-13485 audit expenditures.",
+      "metadata": {}
+    },
+    {
+      "id": "FACT_BEACON_CLIENT_SPREAD",
+      "type": "ApplicationFact",
+      "label": "22 Recurring Clients (Max Single = 9%)",
+      "description": "Form detail: Revenue spread across 22 aerospace and medical technology buyers with 3-year recurring contracts.",
+      "metadata": {}
+    },
+    {
+      "id": "TACIT_ISO13485_MOAT",
+      "type": "TacitKnowledge",
+      "label": "ISO-13485 High Switching-Cost Moat",
+      "description": "Officer's industry expertise: Medical device aerospace audits take 14 months to qualify. Once qualified, clients rarely switch suppliers due to re-certification costs.",
+      "metadata": {}
+    },
+    {
+      "id": "TACIT_5AXIS_CNC_LIQUIDITY",
+      "type": "TacitKnowledge",
+      "label": "5-Axis CNC Global Liquidity",
+      "description": "Officer knows DMG Mori 5-axis machines maintain 85%+ resale value globally; auction resale takes <3 weeks.",
+      "metadata": {}
+    },
+    {
+      "id": "INFER_BEACON_HIGH_STICKINESS",
+      "type": "InferredAssessment",
+      "label": "High Customer Retention & Pricing Power",
+      "description": "Diversified customer base with qualified supplier status gives Beacon pricing power and predictable margins.",
+      "metadata": {}
+    },
+    {
+      "id": "CONSEQ_BEACON_RECURRING_CASHFLOW",
+      "type": "FinancialConsequence",
+      "label": "Contracted Cashflow Expansion & DSCR > 2.1x",
+      "description": "Audit completion unlocks signed purchase orders. Projected DSCR rises to 2.15x over loan term.",
+      "metadata": {}
+    },
+    {
+      "id": "RISK_BEACON_LOW_DEFAULT",
+      "type": "RepaymentRisk",
+      "label": "Robust Debt-Service Capacity (Low Risk)",
+      "description": "Resilient multi-channel cash generation ensures prompt interest and principal repayment.",
+      "metadata": {}
+    },
+    {
+      "id": "DECISION_BEACON_APPROVE",
+      "type": "Decision",
+      "label": "DECISION: APPROVE APPLICATION",
+      "description": "Approve $250,000 facility with standard covenant of quarterly financial reviews.",
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "source": "BORROWER_APEX",
+      "target": "FACT_APEX_CREDIT",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_APEX",
+      "target": "FACT_APEX_COLLATERAL",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_APEX",
+      "target": "FACT_APEX_CLIENT_CONCENTRATION",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_APEX",
+      "target": "FACT_APEX_DSO",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "FACT_APEX_COLLATERAL",
+      "target": "TACIT_COLD_CHAIN_DEPRECIATION",
+      "relation": "triggers_tacit_knowledge",
+      "rule": "Officer adjusts paper collateral valuation based on secondary market auction data",
+      "weight": 1.0
+    },
+    {
+      "source": "FACT_APEX_CLIENT_CONCENTRATION",
+      "target": "TACIT_TITANMART_RESTRUCTURING",
+      "relation": "triggers_tacit_knowledge",
+      "rule": "Officer matches stated buyer name against recent supply-chain distress reports",
+      "weight": 1.0
+    },
+    {
+      "source": "TACIT_TITANMART_RESTRUCTURING",
+      "target": "INFER_APEX_EXTREME_DEPENDENCY",
+      "relation": "infers",
+      "rule": "High concentration + predatory buyer behavior = extreme financial fragility",
+      "weight": 1.0
+    },
+    {
+      "source": "INFER_APEX_EXTREME_DEPENDENCY",
+      "target": "CONSEQ_APEX_WORKING_CAPITAL_DEFICIT",
+      "relation": "leads_to_consequence",
+      "rule": "Unilateral term extension directly drains working capital cash reserves",
+      "weight": 1.0
+    },
+    {
+      "source": "CONSEQ_APEX_WORKING_CAPITAL_DEFICIT",
+      "target": "RISK_APEX_HIGH_DEFAULT",
+      "relation": "determines_risk",
+      "rule": "Insufficient operating cash flows to service senior bank debt",
+      "weight": 1.0
+    },
+    {
+      "source": "RISK_APEX_HIGH_DEFAULT",
+      "target": "DECISION_APEX_REJECT",
+      "relation": "justifies_decision",
+      "rule": "Officer rejects due to unhedged single-customer monopsony and impending liquidity freeze",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_BEACON",
+      "target": "FACT_BEACON_CREDIT",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_BEACON",
+      "target": "FACT_BEACON_COLLATERAL",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_BEACON",
+      "target": "FACT_BEACON_TEMPORARY_CASH_DIP",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "BORROWER_BEACON",
+      "target": "FACT_BEACON_CLIENT_SPREAD",
+      "relation": "has_stated_fact",
+      "rule": "Form declaration",
+      "weight": 1.0
+    },
+    {
+      "source": "FACT_BEACON_COLLATERAL",
+      "target": "TACIT_5AXIS_CNC_LIQUIDITY",
+      "relation": "triggers_tacit_knowledge",
+      "rule": "Officer confirms equipment has ready industrial market resale demand",
+      "weight": 1.0
+    },
+    {
+      "source": "FACT_BEACON_TEMPORARY_CASH_DIP",
+      "target": "TACIT_ISO13485_MOAT",
+      "relation": "triggers_tacit_knowledge",
+      "rule": "Officer recognizes Q2 cash expense as an essential moat-building capital investment rather than operational bleeding",
+      "weight": 1.0
+    },
+    {
+      "source": "FACT_BEACON_CLIENT_SPREAD",
+      "target": "INFER_BEACON_HIGH_STICKINESS",
+      "relation": "infers",
+      "rule": "Low HHI (Herfindahl index) means loss of any single client impacts <9% of turnover",
+      "weight": 1.0
+    },
+    {
+      "source": "TACIT_ISO13485_MOAT",
+      "target": "INFER_BEACON_HIGH_STICKINESS",
+      "relation": "infers",
+      "rule": "Certified component status insulates supplier from customer churn",
+      "weight": 1.0
+    },
+    {
+      "source": "INFER_BEACON_HIGH_STICKINESS",
+      "target": "CONSEQ_BEACON_RECURRING_CASHFLOW",
+      "relation": "leads_to_consequence",
+      "rule": "Secured purchase orders translate into high-margin operating cash flows",
+      "weight": 1.0
+    },
+    {
+      "source": "CONSEQ_BEACON_RECURRING_CASHFLOW",
+      "target": "RISK_BEACON_LOW_DEFAULT",
+      "relation": "determines_risk",
+      "rule": "High forward-looking debt service coverage creates safety buffer",
+      "weight": 1.0
+    },
+    {
+      "source": "RISK_BEACON_LOW_DEFAULT",
+      "target": "DECISION_BEACON_APPROVE",
+      "relation": "justifies_decision",
+      "rule": "Officer approves based on verified regulatory moat, customer diversification, and strong cash conversion",
+      "weight": 1.0
+    }
+  ]
+}
