@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareSync AI - Secure Case Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="brand">
+        <span class="logo-icon">🛡️</span>
+        <div>
+          <h1>CareSync AI Portal</h1>
+          <p class="subtitle">Confidential Case Notes & Clinical AI Assistant (app.example.in)</p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-indicator online"></span>
+        <span id="backend-status">System Operational (HTTPS Active)</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Left Column: Case Notes Management -->
+      <section class="card cases-panel">
+        <div class="panel-header">
+          <h2>🔒 Confidential Case Notes</h2>
+          <span class="badge">PostgreSQL Encrypted</span>
+        </div>
+        
+        <form id="new-case-form" class="form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="client-pseudonym">Client Pseudonym</label>
+              <input type="text" id="client-pseudonym" placeholder="e.g. Client-4819" required>
+            </div>
+            <div class="form-group">
+              <label for="case-category">Category</label>
+              <select id="case-category">
+                <option value="Housing Assistance">Housing Assistance</option>
+                <option value="Vocational Support">Vocational Support</option>
+                <option value="Clinical Wellbeing">Clinical Wellbeing</option>
+                <option value="Legal Aid">Legal Aid</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="case-content">Confidential Progress Notes</label>
+            <textarea id="case-content" rows="4" placeholder="Enter session observations, milestone completions, or immediate needs..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Case Note</button>
+        </form>
+
+        <hr class="divider">
+
+        <div class="cases-list-header">
+          <h3>Recent Case Records</h3>
+          <button id="refresh-cases" class="btn btn-secondary btn-sm">↻ Refresh</button>
+        </div>
+        <div id="cases-container" class="cases-container">
+          <p class="loading">Loading case records...</p>
+        </div>
+      </section>
+
+      <!-- Right Column: AI Assistant Interface -->
+      <section class="card ai-panel">
+        <div class="panel-header">
+          <h2>🤖 Llama 3.1 8B Assistant</h2>
+          <span class="badge badge-gpu">GPU Accelerated (24GB VRAM)</span>
+        </div>
+        <p class="panel-desc">
+          Ask clinical summary questions or policy guidelines. All prompts are processed securely.
+        </p>
+
+        <div id="chat-messages" class="chat-messages">
+          <div class="message system-message">
+            <div class="sender">CareSync AI Assistant</div>
+            <div class="text">Hello! I am connected to the local Llama 3.1 (8B) model. How can I assist with case coordination today?</div>
+          </div>
+        </div>
+
+        <form id="ai-query-form" class="ai-query-form">
+          <input type="text" id="ai-input" placeholder="Ask AI: e.g. 'Summarize recent housing assistance notes'..." required autocomplete="off">
+          <button type="submit" class="btn btn-ai" id="ai-submit-btn">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>CareSync AI Case Management System | Reverse-proxied by <strong>Caddy</strong> | Protected with Let's Encrypt TLS 1.3</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+# Production Caddyfile for app.example.in
+# Handles Automated HTTPS via Let's Encrypt / ZeroSSL
+# Reverse proxies frontend, backend API, and WebSocket streaming
+
+{
+    # Global options
+    email admin@example.in
+    admin off
+    # In local development or staging, internal self-signed TLS can be used:
+    # local_certs
+}
+
+app.example.in {
+    # Encode with gzip and zstd for fast loading
+    encode zstd gzip
+
+    # Security Headers Hardening
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:;"
+    }
+
+    # Route /api/* and /health to FastAPI Backend
+    handle /api/* {
+        reverse_proxy backend:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    handle /health {
+        reverse_proxy backend:8000
+    }
+
+    # Route all other traffic to Frontend Static Server
+    handle {
+        reverse_proxy frontend:80 {
+            header_up Host {host}
+        }
+    }
+
+    # Custom Logging
+    log {
+        output stdout
+        format json
+    }
+}

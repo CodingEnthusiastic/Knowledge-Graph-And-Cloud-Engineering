@@ -1,0 +1,202 @@
+version: '3.8'
+
+# Production Docker Compose Configuration
+# All 5 Application Components + Caddy Reverse Proxy
+# Incorporates Persistent Named Volumes, GPU Reservations, and Health Checks
+
+services:
+  # =========================================================================
+  # 1. CADDY REVERSE PROXY & AUTOMATED TLS
+  # =========================================================================
+  caddy:
+    image: caddy:2-alpine
+    container_name: caresync_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # =========================================================================
+  # 2. FRONTEND WEB CLIENT
+  # =========================================================================
+  frontend:
+    build:
+      context: ./app/frontend
+      dockerfile: Dockerfile
+    container_name: caresync_frontend
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # =========================================================================
+  # 3. PYTHON FASTAPI BACKEND
+  # =========================================================================
+  backend:
+    build:
+      context: ./app/backend
+      dockerfile: Dockerfile
+    container_name: caresync_backend
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-app_user}:${POSTGRES_PASSWORD:-app_password}@postgres:5432/${POSTGRES_DB:-app_db}
+      - REDIS_URL=redis://redis:6379/0
+      - AI_SERVICE_URL=http://ai-service:8001
+      - APP_ENV=production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # =========================================================================
+  # 4. POSTGRESQL DATABASE
+  # =========================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: caresync_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-app_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app_password}
+      POSTGRES_DB: ${POSTGRES_DB:-app_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app_user} -d ${POSTGRES_DB:-app_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # =========================================================================
+  # 5. REDIS MESSAGE BROKER
+  # =========================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: caresync_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # =========================================================================
+  # 6. ASYNC BACKGROUND WORKER
+  # =========================================================================
+  worker:
+    build:
+      context: ./app/worker
+      dockerfile: Dockerfile
+    container_name: caresync_worker
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-app_user}:${POSTGRES_PASSWORD:-app_password}@postgres:5432/${POSTGRES_DB:-app_db}
+      - REDIS_URL=redis://redis:6379/0
+      - AI_SERVICE_URL=http://ai-service:8001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  # =========================================================================
+  # 7. AI MODEL SERVICE (Llama 3.1 8B with GPU Access)
+  # =========================================================================
+  ai-service:
+    build:
+      context: ./app/ai_service
+      dockerfile: Dockerfile
+    container_name: caresync_ai_model
+    restart: unless-stopped
+    expose:
+      - "8001"
+    environment:
+      - MODEL_NAME=llama-3.1-8b-instruct
+      - QUANTIZATION=4bit
+      - VLLM_GPU_MEMORY_UTILIZATION=0.85
+      - MAX_MODEL_LEN=4096
+    volumes:
+      - ai_model_cache:/root/.cache/huggingface
+    networks:
+      - app_network
+    # GPU Access: Passes through host NVIDIA GPU (RTX 3090/4090/A10G)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 25s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+# ===========================================================================
+# VOLUMES & NETWORKS
+# ===========================================================================
+volumes:
+  postgres_data:
+    name: caresync_postgres_data
+  caddy_data:
+    name: caresync_caddy_data
+  caddy_config:
+    name: caresync_caddy_config
+  redis_data:
+    name: caresync_redis_data
+  ai_model_cache:
+    name: caresync_ai_model_cache
+
+networks:
+  app_network:
+    name: caresync_network
+    driver: bridge
