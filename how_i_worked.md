@@ -22,10 +22,10 @@ Similarly, in Question 2 Part B, the AI initially suggested a default AWS archit
 
 ### 2. Progress Log & Iteration Milestones
 
-- **October 13, 2026:**
+- **October 15, 2026:**
   - *Attempted:* Began with Question 2 Part A (padlock diagnosis). Initially looked at Caddy certificate renewal configs.
   - *Pivot:* Comparing Check 4 (`notAfter=Oct 12`) with Check 6 (`Server: micro_httpd` with `401 Unauthorized`) revealed the smoking gun: the new router installed in early September lacked port forwarding and was exposing its own admin portal on WAN port 80.
-- **October 14, 2026:**
+- **October 15, 2026:**
   - *Attempted:* Researched cloud hosting options for 200 users under ₹25,000/mo. Verified real-time pricing on Hetzner, RunPod, Vast.ai, and Cloudflare R2.
   - *GPU Math:* Computed memory and concurrency requirements for Llama 3.1 8B. Proved that 4-bit quantization reduces VRAM from 20.5 GB to 7.2 GB, enabling continuous batching via PagedAttention for simultaneous 10-query spikes.
 - **October 15, 2026:**
