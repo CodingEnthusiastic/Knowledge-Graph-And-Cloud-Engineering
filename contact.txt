@@ -1,0 +1,27 @@
+================================================================================
+CANDIDATE CONTACT DETAILS FOR INTERVIEW SCHEDULING
+AI Knowledge Graph & Cloud Engineering Internship Assignment
+================================================================================
+
+1. Contact Number:
+   +91-XXXXXXXXXX (Active on WhatsApp & Phone Calls)
+   [Candidate: Please replace with your actual WhatsApp contact number]
+
+2. Preferred Interview Availability (Next Week):
+   - Weekdays (Monday to Friday): After 5:00 PM IST
+   - Saturday: 10:00 AM to 2:00 PM IST
+   - Sunday: Flexible with prior notice
+   (I am also happy to adjust if the panel prefers a specific time slot)
+
+3. Professional Profile Links:
+   - GitHub: https://github.com/CodingEnthusiastic
+   - LinkedIn: https://www.linkedin.com/in/your-profile
+   - Portfolio / Resume: [Available upon request]
+
+================================================================================
+Note for Interview Panel:
+I have thoroughly prepared the codebase, knowledge graph reasoning traces, 
+cloud calculations, and disaster recovery procedures. I look forward to 
+walking through the architecture and addressing any "what-if" modifications 
+during our 25-30 minute call!
+================================================================================
